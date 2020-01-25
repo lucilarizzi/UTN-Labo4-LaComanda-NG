@@ -1,0 +1,38 @@
+<div class="unGranDiv col-12" *ngIf="!pedida">
+    <div class="row">
+        <div class="col-4">
+            <h1 style="font-family: 'Raleway', sans-serif; font-size: 25pt; font-weight: 800; margin-left:10px ; text-align: right;">Comensales
+            </h1>
+        </div>
+        <div class="col-8" style="text-align: center; display: flex;
+        align-items: center;
+        justify-content: center;">
+            <div class="def-number-input number-input safari_only">
+                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+                <input class="quantity" name="quantity" type="number" min="1" max="16" [(ngModel)]="comensales">
+                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+            </div>
+        </div>
+        <div class="col-12 mr-5" style="height:50%; background-color: rgb(173, 173, 173); color: seashell; padding: 10px; text-align: center" (click)="pedirMesa()">
+            <mdb-icon fas icon="concierge-bell" class="botonPedir"></mdb-icon>
+            <h1 class="botonPedir">PEDIR MESA
+            </h1>
+        </div>
+        <hr>
+    </div>
+</div>
+
+
+<div *ngIf="pedida">
+    <h3>Listado de Mesas Disponibles</h3>
+    <div class="row mt-5">
+        <div class="card col-md-6 col-lg-3" *ngFor="let mesa of mesas">
+            <div class=" card-body ">
+                <img src="{{mesa.url}}" style="max-width: 100%">
+                <h3>Mesa Nº {{mesa.numero}}</h3>
+                <p>Comensales: {{mesa.cantidadComensales}} </p>
+                <button type="button" class="btn btn-warning" (click)="elegirMesa(mesa)">Solicitar Mesa</button>
+            </div>
+        </div>
+    </div>
+</div>

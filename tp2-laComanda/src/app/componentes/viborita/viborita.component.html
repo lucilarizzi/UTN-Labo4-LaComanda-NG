@@ -1,0 +1,6 @@
+<div class="container">
+    <div class="row" *ngFor="let column of board; let i = index;">
+        <div class="column" [ngStyle]="{'background-color': setColors(i, j), 'border-radius': setRound(i, j)}" *ngFor="let row of column; let j = index"></div>
+    </div>
+    <div class="btn btn-info" [ngClass]="{'disable-clicks': gameStarted}" (click)="newGame(mode)" *ngFor="let mode of getKeys(all_modes)">{{all_modes[mode]}}</div>
+</div>

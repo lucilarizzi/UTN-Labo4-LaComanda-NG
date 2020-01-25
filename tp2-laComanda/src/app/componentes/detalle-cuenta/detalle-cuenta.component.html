@@ -1,0 +1,71 @@
+<div class="invoice-box">
+    <table cellpadding="0" cellspacing="0">
+        <tr class="top">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td class="title">
+                            <img src="../../../assets/favicon.png" style="width:60px; max-width:300px;">
+                        </td>
+
+
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr class="information">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td>
+                            La Comanda<br>de Lucila Rizzi<br> Mecon 2019 <br><br>
+                            <hr> <strong> Pago Online </strong>
+                        </td>
+
+                        <td>
+                            Cliente<br> luloop.com.ar<br> lucilarizzi@gmail.com<br><br>
+                            <hr><strong> Cuenta #000-0000123456 </strong>
+                            <div style="font-weight: bold; font-size:12pt">Mesa Nº {{mesa.numero}}</div>
+
+                        </td>
+
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+
+        <tr class="heading">
+            <td>
+                Item
+            </td>
+
+            <td>
+                Price
+            </td>
+        </tr>
+
+        <tr class="item" *ngFor="let producto of todosPedidos">
+            <!-- ngfor -->
+            <td>
+                {{producto.nombre}}
+            </td>
+
+            <td>
+                ${{producto.stock}}
+            </td>
+        </tr>
+
+
+
+        <tr class="total">
+            <td></td>
+
+            <td>
+                Total: {{total}}
+            </td>
+        </tr>
+    </table>
+    <button type="button" class="btn btn-warning" (click)="enviarPago();" *ngIf="this.mesa.estado=='pagando'">     Pagar</button>
+</div>

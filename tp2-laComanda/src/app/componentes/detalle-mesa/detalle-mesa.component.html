@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col-5">
+        <div class="col-12">
+            <div class="h1 mt-2">Estado de Tu Mesa</div>
+
+        </div>
+        <div>
+            <img src="{{nroMesa.url}}" class="col-12">
+        </div>
+        <div class=" card-body ">
+            <div class="row">
+                <div class="col-6 h2  "> Mesa Nº {{nroMesa.numero}}</div>
+                <div class="col-6">Comensales: {{nroMesa.cantidadComensales}} </div>
+                <div class="col-12  " style="font-weight: bold; color:brown" *ngIf="nroMesa.estado=='ocupada'">Estado {{nroMesa.estado}} </div>
+                <div class="col-12  " style="font-weight: bold; color:rgb(42, 44, 165)" *ngIf="nroMesa.estado=='comiendo'">Estado {{nroMesa.estado}} </div>
+                <div class="col-12  " style="font-weight: bold; color:rgb(236, 205, 26)" *ngIf="nroMesa.estado=='reservada'">Estado {{nroMesa.estado}} </div>
+                <div class="col-12  " style="font-weight: bold; color:rgb(46, 165, 42)" *ngIf="nroMesa.estado=='disponible'">Estado {{nroMesa.estado}} </div>
+                <div class="col-12  " style="font-weight: bold; color:rgb(9, 88, 6)" *ngIf="nroMesa.estado=='esperandoComida'">Estado {{nroMesa.estado}} </div>
+                <div class="col-12  " style="font-weight: bold; color:rgb(9, 88, 6)" *ngIf="nroMesa.estado=='cuentaPedida'">Estado {{nroMesa.estado}} </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-5">
+        <h2>Pedidos</h2>
+        <div *ngFor="let productos of pedidos">
+            <hr>
+            <h4><strong>Area {{productos.area | areas}} <span *ngIf="productos.tiempo_espera != -1 " class="animated flash" style="font-size:10; font-weight: bold; padding: 5px;"> Tiempo {{productos.tiempo_espera }} </span> </strong>
+                <span appColorPedido [estado]="productos.estado" style="font-size:  10pt;">{{productos.estado | estados}}</span>
+            </h4>
+            <ul>
+                <li *ngFor="let producto of productos.productos">
+                    <div class="row">
+                        <div class="col-9"> producto: {{producto.nombre}}</div>
+                        <div class="col-3"> $ {{producto.stock}} </div>
+                    </div>
+
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="nroMesa.estado!='cuentaPedida'">
+    <div class="col-2"></div>
+    <div class="col-8"><button type="button" class="btn btn-dark col-12" (click)="cerrarMesa()" *ngIf="nroMesa.estado=='comiendo'">Terminar Comida</button></div>
+    <div class="col-2"></div>
+</div>

@@ -1,0 +1,98 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+    <p style="font-size: 20px; color: white">Estamos Buscando su Mesa...</p>
+</ngx-spinner>
+<!--Navbar-->
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark cyan">
+    <mdb-navbar-brand>
+        <a class="navbar-brand" (click)="ngOnInit()">
+            <img src="../../../assets/favicon.png" height="30" class="d-inline-block align-top" alt="" (click)="vista(0)">
+        </a>
+    </mdb-navbar-brand>
+    <mdb-icon fas icon="angle-left" size="lg" class="text-white mr-auto d-flex d-md-none align-self-center"></mdb-icon>
+    <links>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown" dropdown>
+                <a class="nav-link waves-light" (click)="ngOnInit()"> Cliente: </a>
+            </li>
+            <li class="nav-item dropdown" dropdown>
+                <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+                    <i class="fas fa-address-card"></i>
+                    <span class="caret"></span></a>
+                <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+                    <a class="dropdown-item waves-light" (click)="vista(6)">Modificar Perfil</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown" dropdown *ngIf="this.servicio.mesas().mesaActual!= null">
+                <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+                    Mesa<span class="caret"></span></a>
+                <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+                    <a class="dropdown-item waves-light" (click)="vista(2)">Mi mesa actual</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown" dropdown *ngIf="this.servicio.mesas().mesaActual!= null">
+                <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+                    Pedidos<span class="caret"></span></a>
+                <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+                    <a class="dropdown-item waves-light" (click)="vista(7)"> Lista de Precios
+                    </a>
+                </div>
+            </li>
+        </ul>
+        <div class="row col-3">
+            <span class="mr-3  mt-1 text-gray-600 small" style="color: aliceblue" *ngIf="servicio.autenticar().afAuth.auth.currentUser">{{servicio.autenticar().afAuth.auth.currentUser.email}}
+            </span>
+            <span class="mr-3   text-gray-600 small" style="color: aliceblue" *ngIf="servicio.autenticar().afAuth.auth.currentUser"><img
+                    src="{{servicio.usuarios().traerUsuarioActual().photoURL}}" alt="" style="max-width: 30px;"></span>
+
+        </div>
+        <div class="row col-3">
+
+            <span class="mr-3 text-gray-600 small" style="color: aliceblue" *ngIf="servicio.autenticar().afAuth.auth.currentUser" (click)="servicio.autenticar().signOut()">Logout</span>
+        </div>
+    </links>
+</mdb-navbar>
+
+
+<main>
+    <div class="row" style="margin-top: 5%" [ngSwitch]="opcion">
+        <div class="col-3  col-sm-1 col-xs-1"></div>
+        <div class="col-6 col-sm-10 col-xs-10">
+
+            <app-pedir-mesa *ngSwitchCase="1" (terminar)="volverPedirMesa($event)"></app-pedir-mesa>
+            <app-detalle-mesa *ngSwitchCase="2" (terminar)="cerrarMesa($event)"></app-detalle-mesa>
+            <div *ngSwitchCase="4">
+                <div class="row" *ngIf="this.servicio.mesas().mesaActual.estado!='inicioServicio'">
+                    <div class="col-6">
+                        <h2 class=" animated">{{this.servicio.mesas().mesaActual.estado | estadosMesaCliente}}</h2>
+                    </div>
+                    <div class="col-6">
+                        <ngx-snake> </ngx-snake>
+                    </div>
+                </div>
+                <div class="row" *ngIf="this.servicio.mesas().mesaActual.estado =='inicioServicio'">
+                    <app-listado-precios (pedidoEmit)="pedido($event)"></app-listado-precios>
+                </div>
+
+            </div>
+            <div *ngSwitchCase="5">
+                <div class="row">
+                    <div class="col-4">
+                        <h2 class=" animated">{{this.servicio.mesas().mesaActual.estado | estadosMesaCliente}}</h2>
+                        <app-detalle-cuenta *ngIf="this.servicio.mesas().mesaActual.estado =='pagando'"></app-detalle-cuenta>
+                    </div>
+                    <div class="col-8">
+                        <app-encuesta *ngIf="!servicio.usuarios().traerUsuarioActual().registrado"></app-encuesta>
+                        <ngx-snake *ngIf="servicio.usuarios().traerUsuarioActual().registrado"> </ngx-snake>
+                    </div>
+                </div>
+            </div>
+            <app-listado-producto *ngSwitchCase="7"></app-listado-producto>
+            <app-listado-precios *ngSwitchCase="6" (pedidoEmit)="pedido($event)"></app-listado-precios>
+            <app-confirmar-pedido *ngSwitchCase="61" [pedido]="pedidoAConfirmar.productos" (pedidoEmit)=" pedidoConfirmadoE($event)"></app-confirmar-pedido>
+
+        </div>
+        <div class="col-3  col-sm-1 col-xs-1"></div>
+    </div>
+
+
+</main>

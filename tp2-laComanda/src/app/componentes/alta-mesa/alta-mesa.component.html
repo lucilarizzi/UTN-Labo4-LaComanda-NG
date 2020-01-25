@@ -1,0 +1,70 @@
+<div style="text-align:center">
+    <h1>
+        Alta Mesa
+    </h1>
+
+
+    <h2 style="color:aliceblue"></h2>
+
+    <form style="margin-top: 40px;" [formGroup]="angForm" (ngSubmit)="onSubmitProducto()">
+        <div color="light">
+            <label class="center-block">Numero:
+                <input class="form-control" type="number" formControlName="numero">
+            </label>
+        </div>
+        <div *ngIf="angForm.controls['numero'].invalid && (angForm.controls['numero'].dirty || angForm.controls['numero'].touched)" class="alert alert-danger ">
+            <div *ngIf="angForm.controls['numero'].errors.required">
+                Numero is required.
+            </div>
+        </div>
+
+        <div color="light">
+            <label class="center-block">Comensales:
+                <input class="form-control" maxlength="100" name="cantidadComensales" type="number" placeholder="cantidadComensales" formControlName="cantidadComensales">
+            </label>
+
+        </div>
+        <div *ngIf="angForm.controls['cantidadComensales'].invalid && (angForm.controls['cantidadComensales'].dirty || angForm.controls['cantidadComensales'].touched)" class="alert alert-danger ">
+            <div *ngIf="angForm.controls['cantidadComensales'].errors.required">
+                cantidadComensales is required.
+            </div>
+        </div>
+
+        <div color="light">
+            <label class="center-block">Tipo:
+                <input class="form-control" name="tipoMesa" type="text" placeholder="tipoMesa" formControlName="tipoMesa">
+            </label>
+        </div>
+        <div *ngIf="angForm.controls['tipoMesa'].invalid && (angForm.controls['tipoMesa'].dirty || angForm.controls['tipoMesa'].touched)" class="alert alert-danger ">
+            <div *ngIf="angForm.controls['tipoMesa'].errors.required">
+                tipoMesa is required.
+            </div>
+        </div>
+        <div color="light">
+            <label class="center-block">Codigo:
+                <input class="form-control" name="codigoQr" type="text" placeholder="codigoQr" formControlName="codigoQr">
+            </label>
+        </div>
+        <div *ngIf="angForm.controls['codigoQr'].invalid && (angForm.controls['codigoQr'].dirty || angForm.controls['codigoQr'].touched)" class="alert alert-danger ">
+            <div *ngIf="angForm.controls['codigoQr'].errors.required">
+                codigoQr is required.
+            </div>
+        </div>
+        <hr>
+        <button type="submit"> Ingresar Nueva Mesa </button>
+
+
+
+
+        <br>
+
+    </form>
+
+
+
+
+
+
+    <!--     <p>Form value: {{ angForm.value | json }}</p>
+    <p>Form status: {{ angForm.status | json }}</p> -->
+</div>

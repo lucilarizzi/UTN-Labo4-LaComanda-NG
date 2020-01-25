@@ -1,0 +1,37 @@
+<!--Section heading-->
+<div class="row text-center">
+    <div class="col-6">
+        <h2 class="h2-responsive font-weight-bold text-center ">Listado de Precios
+        </h2>
+    </div>
+    <div class="col-3 ">
+        <select class="browser-default custom-select" id="tipoOrden" (change)=" ordenar()">
+            <option value="tipo">Tipo</option>
+            <option value="nombre">Nombre</option>
+        </select>
+
+    </div>
+    <div class="col-3">
+        <select class="browser-default custom-select" id="orden" (change)="ordenar()">
+            <option value="asc">Ascendente</option>
+            <option value="desc">Descendente</option>
+        </select>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="card col-md-6 col-lg-3" *ngFor="let producto of peliculas">
+        <div class=" card-body ">
+            <div appColorBadgeArea [estado]="producto.tipo"> {{producto.tipo | areas}} </div>
+            <h5 class="mb-4">{{producto.nombre}}</h5>
+            <div class="d-flex justify-content-center">
+                <div class="card-circle d-flex justify-content-center align-items-center">
+                    <img src="{{producto.url}}" class="img-thumbnail" alt="{{producto.url}}" style="max-width:180px;max-height:180px; margin-left: auto; margin-right: auto;   height:auto;">
+                </div>
+            </div>
+            <!-- Price -->
+            <h3 class="font-weight-bold my-4">$ {{producto.stock}}</h3>
+            <p class="grey-text"> {{producto.descripcion}}</p>
+        </div>
+    </div>
+</div>

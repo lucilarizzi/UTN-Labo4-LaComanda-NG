@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/tp2BasedeDatos",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
